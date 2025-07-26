@@ -1,6 +1,6 @@
 # GradTrack
 
-GradTrack is a comprehensive academic management web application designed to support **all students at Al Akhawayn University (AUI)** — across all schools and majors including SSE (School of Science & Engineering), SBA (School of Business Administration), SSAH (School of Social Sciences & Humanities), and LC (Liberal Commons). 
+GradTrack is a comprehensive academic management web application designed to support **all students at Al Akhawayn University (AUI)** — across all schools and majors including SSE (School of Science & Engineering), SBA (School of Business Administration), SSAH (School of Social Sciences & Humanities), and LC (Language Center). 
 
 The platform helps students manage their course selections, build personalized degree plans, receive AI-powered course recommendations, and share course experiences with peers. For **FYE (First-Year Experience) students**, GradTrack offers special tools to create a full 4-year degree plan with automatic prerequisite checks and course classification guidance, removing the hassle of manually tracking complex degree requirements.
 
@@ -55,63 +55,88 @@ The platform helps students manage their course selections, build personalized d
 
 ---
 
-## Getting Started
+# Getting Started with Gradtrack
 
-### Prerequisites
+This guide will help you set up and run the Gradtrack project.
 
-- Node.js (v16 or higher)  
-- PostgreSQL Database  
-- Python 3.x (for ML scripts)  
-- Package managers: npm or Yarn  
+## Prerequisites
 
-### Installation
+Before you begin, ensure you have the following installed:
 
-1. Clone the repository:
+  * **Node.js**: Version 16 or higher.
+  * **PostgreSQL Database**: A running PostgreSQL instance is required.
+  * **Python**: Version 3.x (for ML scripts).
+  * **Package Managers**: Either npm or Yarn.
 
+## Installation
+
+Follow these steps to get Gradtrack up and running:
+
+### 1\. Clone the Repository
+
+First, clone the Gradtrack repository to your local machine:
+
+```bash
 git clone https://github.com/yourusername/gradtrack.git
 cd gradtrack
+```
 
-2. Backend Setup:
+### 2\. Backend Setup
 
+Navigate to the backend directory and set up the server:
+
+```bash
 cd server
 npm install
-npx prisma generate  
+npx prisma generate
 npx prisma migrate dev
 npm run dev
+```
 
-3. Frontend Setup:
+### 3\. Frontend Setup
 
+Move to the frontend directory and install its dependencies:
+
+```bash
 cd ../web
 npm install
 npm run dev
+```
 
-### Folder Structure:
+## Folder Structure
 
+Here's an overview of the project's directory structure:
+
+```
 gradtrack/
-├── backend/            # API server (Node.js + Express + Prisma)
-│   ├── prisma/         # Prisma schema and migrations
+├── backend/                  # API server (Node.js + Express + Prisma)
+│   ├── prisma/               # Prisma schema and migrations
 │   ├── src/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   ├── middleware/
-│   │   └── server.ts
-├── frontend/           # React + TypeScript frontend app
+│   │   ├── controllers/      # API controllers
+│   │   ├── middleware/       # Express middleware
+│   │   ├── routes/           # API routes
+│   │   └── server.ts         # Backend server entry point
+├── ml/                       # Python scripts for ML course recommendations
+│   ├── recommend.py          # Recommendation logic
+│   ├── requirements.txt      # Python dependencies
+│   └── train.py              # ML model training script
+├── web/                      # React + TypeScript frontend application
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── hooks/
-│   │   └── App.tsx
-├── ml/                 # Python scripts for ML course recommendations
-│   ├── train.py
-│   ├── recommend.py
-│   └── requirements.txt
-└── README.md
+│   │   ├── components/       # Reusable UI components
+│   │   ├── hooks/            # Custom React hooks
+│   │   ├── pages/            # React pages/views
+│   │   └── App.tsx           # Frontend application entry point
+└── README.md                 # Project README file
+```
 
-###Contribution
-Contributions, bug reports, and feature requests are welcome! Please open an issue or submit a pull request.
+## Contributions
 
-###License
-This project is licensed under the Apache 2.0 License.
+Contributions, bug reports, and feature requests are welcome\! Please feel free to [open an issue](https://www.google.com/search?q=https://github.com/yourusername/gradtrack/issues) or [submit a pull request](https://www.google.com/search?q=https://github.com/yourusername/gradtrack/pulls).
 
-###Contact
-For questions or collaboration, contact **yasser1aboussikine@gmail.com**.
+## License
+
+This project is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).
+
+## Contact
+
+For questions or collaboration, please contact [yasserlaboussikine@gmail.com](mailto:yasserlaboussikine@gmail.com).
