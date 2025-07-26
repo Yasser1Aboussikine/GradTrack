@@ -43,13 +43,13 @@ The platform helps students manage their course selections, build personalized d
 | Layer           | Technologies & Libraries                                  | Purpose                                                                 |
 |-----------------|----------------------------------------------------------|-------------------------------------------------------------------------|
 | Frontend        | React + TypeScript + Tailwind CSS                         | Responsive UI, interactive planner, course search, comments             |
-| State Management| Zustand or Redux Toolkit                                  | Manage user state, degree plans, and UI state                           |
+| State Management| Redux Toolkit                                  | Manage user state, degree plans, and UI state                           |
 | Forms & Validation | React Hook Form + Zod                                    | User input forms with robust validation                                |
 | Backend         | Node.js + Express + TypeScript                            | REST API server, business logic, authentication                        |
 | ORM & Database  | Prisma ORM + PostgreSQL                                   | Database schema management, querying, and migrations                   |
-| Authentication  | JWT or Auth0/Clerk                                       | Secure user authentication and authorization                           |
+| Authentication  | JWT                                     | Secure user authentication and authorization                           |
 | Machine Learning| Python (Surprise, LightFM)                                | Collaborative filtering for course recommendations                     |
-| Visualization   | Mermaid.js, React Flow                                   | Visualizing course prerequisites and degree progress                   |
+| Visualization   | React Flow                                   | Visualizing course prerequisites and degree progress                   |
 | Export & Notifications | jsPDF, Nodemailer, EmailJS                            | Export degree plans as PDF, email notifications                        |
 | Deployment      | Vercel (Frontend), Railway/Render (Backend + Database)    | Hosting and continuous deployment                                     |
 
