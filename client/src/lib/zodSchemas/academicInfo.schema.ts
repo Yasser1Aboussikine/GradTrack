@@ -1,9 +1,34 @@
-import { z } from 'zod'
+import { z } from "zod";
 
-const academicInfo = z.object({
-    school: z.enum(["SSE", "SBA", "SAHS(SSHS)", "LC"]),
-    major: z.enum([]),
-    minor : z.enum(["Buisness Administration", "Psychologie","Mathematics", "individual Minor" ]).optional()
-})
+// Pass valid major IDs dynamically
+export const academicInfoSchema = (validMajorsForSchool: number[]) =>
+  z.object({
+    schoolId: z.number().positive({ message: "School is required" }),
 
-export default academicInfo;
+    majorId: z
+      .number({ message: "Major is required" })
+      .refine((val) => validMajorsForSchool.includes(val), {
+        message: "Selected major is not valid for the chosen school",
+      }),
+
+    minor: z
+      .enum([
+        "Buisness Administration",
+        "Psychologie",
+        "Mathematics",
+        "individual Minor",
+      ])
+      .optional(),
+    Academictranscript: z
+      .instanceof(File, {
+        message: "Please Upload your unofficial transcript as a PDF file",
+      })
+      .refine((file) => file.type === "application/pdf", {
+        message: "Only PDF files are allowed",
+      })
+      .refine((file) => file.size <= 15 * 1024 * 1024, {
+        message: "File is too large (15MB is the limit)",
+      }),
+  });
+
+export default academicInfoSchema;
