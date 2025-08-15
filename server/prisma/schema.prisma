@@ -94,28 +94,29 @@ enum EnrollmentStatus {
   FULL_TIME
   PART_TIME
 }
-enum SemesterHonors{
+
+enum SemesterHonors {
   PresidentList
   DeanList
 }
+
 model AcademicInformation {
   id                 Int       @id @default(autoincrement())
   userId             Int       @unique
   studentId          String    @unique
   majorId            Int
   minorId            Int?
-  level              String
-  degreeType         String
+  // level              String?
+  // degreeType         String 
   gpa                Float?
-  totalCreditsEarned Int
-  creditsRequired    Int
-  currentSemester    String
+  totalCreditsEarned Int?
+  currentSemester    Term      @default(FALL)
   expectedGraduation DateTime?
-  academicStanding   String
-  enrollmentStatus   String
-  faculty            String
-  department         String
-  campus             String
+  academicStanding   String?
+  enrollmentStatus   EnrollmentStatus
+  // faculty            String
+  // department         String
+  // campus             String
   advisorId          Int?
   honorsProgram      Boolean   @default(false)
   studyAbroad        Boolean   @default(false)
@@ -234,7 +235,8 @@ enum SchoolName {
 
 model Major {
   id              Int                   @id @default(autoincrement())
-  name            String
+  name            SchoolName            @default(SSE) //to remove later
+  reditsRequired  Int
   schoolId        Int
   school          School                @relation(fields: [schoolId], references: [id])
   users           AcademicInformation[]
