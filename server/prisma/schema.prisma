@@ -1,0 +1,271 @@
+generator client {
+  provider = "prisma-client-js"
+  // output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// generator erd {
+//   provider = "prisma-erd-generator"
+//   output   = "./ERD"
+// }
+
+enum Term {
+  FALL
+  SPRING
+  SUMMER
+  INTERSESSION
+}
+
+enum Grade {
+  A_PLUS
+  A
+  A_MINUS
+  B_PLUS
+  B
+  B_MINUS
+  C_PLUS
+  C
+  C_MINUS
+  D_PLUS
+  D
+  D_MINUS
+  F
+  I // Incomplete
+  WIP // Work in Progress
+}
+
+enum SemesterStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum Classification {
+  FRESHMAN
+  SOPHOMORE
+  JUNIOR
+  SENIOR
+}
+
+model User {
+  id             Int                  @id @default(autoincrement())
+  email          String               @unique
+  passwordHash   String
+  profileId      Int                  @unique
+  profile        Profile              @relation(fields: [profileId], references: [id])
+  academicInfoId Int                  @unique
+  academicInfo   AcademicInformation? @relation("UserAcademicInfo")
+  degreePlan     DegreePlan?
+  reviews        Review[]
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  schoolId       Int
+  school         School               @relation(fields: [schoolId], references: [id])
+}
+
+model Profile {
+  id          Int       @id @default(autoincrement())
+  name        String
+  major       String
+  phoneNumber String?
+  bio         String?
+  birthDate   DateTime?
+  user        User?     @relation
+}
+
+enum DegreeType {
+  BACHELORS
+  MASTERS
+  PHD
+  DIPLOMA
+}
+
+enum AcademicStanding {
+  GOOD
+  PROBATION
+  SUSPENDED
+}
+
+enum EnrollmentStatus {
+  FULL_TIME
+  PART_TIME
+}
+
+enum SemesterHonors {
+  PresidentList
+  DeanList
+}
+
+model AcademicInformation {
+  id                 Int       @id @default(autoincrement())
+  userId             Int       @unique
+  studentId          String    @unique
+  majorId            Int
+  minorId            Int?
+  // level              String?
+  // degreeType         String 
+  gpa                Float?
+  totalCreditsEarned Int?
+  currentSemester    Term      @default(FALL)
+  expectedGraduation DateTime?
+  academicStanding   String?
+  enrollmentStatus   EnrollmentStatus
+  // faculty            String
+  // department         String
+  // campus             String
+  advisorId          Int?
+  honorsProgram      Boolean   @default(false)
+  studyAbroad        Boolean   @default(false)
+  scholarship        Boolean   @default(false)
+  academicHold       Boolean   @default(false)
+
+  user  User   @relation("UserAcademicInfo", fields: [userId], references: [id])
+  major Major  @relation(fields: [majorId], references: [id])
+  minor Minor? @relation(fields: [minorId], references: [id])
+}
+
+model DegreePlan {
+  id        Int        @id @default(autoincrement())
+  userId    Int        @unique
+  user      User       @relation(fields: [userId], references: [id])
+  startYear Int
+  startTerm Term
+  semesters Semester[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Semester {
+  id           Int              @id @default(autoincrement())
+  degreePlanId Int
+  term         Term
+  sgpa         Int?
+  year         Int
+  honors       SemesterHonors?
+  courses      SemesterCourse[]
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  degreePlan DegreePlan @relation(fields: [degreePlanId], references: [id])
+
+  @@unique([degreePlanId, term, year])
+}
+
+model SemesterCourse {
+  id         Int            @id @default(autoincrement())
+  semesterId Int
+  courseId   Int
+  grade      Grade?
+  status     SemesterStatus @default(PLANNED)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  semester Semester @relation(fields: [semesterId], references: [id])
+  course   Course   @relation(fields: [courseId], references: [id])
+
+  @@unique([semesterId, courseId])
+}
+
+model Course {
+  id             Int            @id @default(autoincrement())
+  code           String         @unique
+  schoolId       Int
+  title          String
+  description    String?
+  credits        Int
+  classification Classification
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  school          School                @relation("Belongs to", fields: [schoolId], references: [id])
+  prerequisites   CoursePrerequisites[] @relation("PrerequisiteToCourse")
+  requiredFor     CoursePrerequisites[] @relation("CourseToPrerequisite")
+  semesterCourses SemesterCourse[]
+  reviews         Review[]
+  subAreas        DegreeSubArea[]       @relation("SubAreaCourses")
+  specializations Specialization[]      @relation("SpecializationCourses")
+}
+
+model CoursePrerequisites {
+  id             Int @id @default(autoincrement())
+  courseId       Int
+  prerequisiteId Int
+
+  course       Course @relation("CourseToPrerequisite", fields: [courseId], references: [id])
+  prerequisite Course @relation("PrerequisiteToCourse", fields: [prerequisiteId], references: [id])
+
+  @@unique([courseId, prerequisiteId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  authorId Int
+  author   User @relation(fields: [authorId], references: [id])
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+
+  parentId String?
+  parent   Review?  @relation("ReviewReplies", fields: [parentId], references: [id])
+  replies  Review[] @relation("ReviewReplies")
+}
+
+model School {
+  id      Int        @id @default(autoincrement())
+  name    SchoolName
+  courses Course[]   @relation("Belongs to")
+  majors  Major[]
+  minors  Minor[]
+  users   User[]
+}
+
+enum SchoolName {
+  SSE
+  SBA
+  SAHS
+  LC
+}
+
+model Major {
+  id              Int                   @id @default(autoincrement())
+  name            SchoolName            @default(SSE) //to remove later
+  reditsRequired  Int
+  schoolId        Int
+  school          School                @relation(fields: [schoolId], references: [id])
+  users           AcademicInformation[]
+  subAreas        DegreeSubArea[]
+  specializations Specialization[]
+}
+
+model Minor {
+  id       Int                   @id @default(autoincrement())
+  name     String
+  schoolId Int
+  school   School                @relation(fields: [schoolId], references: [id])
+  users    AcademicInformation[]
+}
+
+model DegreeSubArea {
+  id         Int      @id @default(autoincrement())
+  name       String // e.g. "Mathematics Requirements", "Specialization: AI", "General Education"
+  majorId    Int
+  major      Major    @relation(fields: [majorId], references: [id])
+  creditsReq Int
+  courses    Course[] @relation("SubAreaCourses")
+}
+
+model Specialization {
+  id      Int      @id @default(autoincrement())
+  name    String
+  majorId Int
+  hello   String
+  major   Major    @relation(fields: [majorId], references: [id])
+  courses Course[] @relation("SpecializationCourses")
+}
