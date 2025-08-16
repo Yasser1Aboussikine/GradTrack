@@ -66,35 +66,35 @@ button:focus-visible {
   }
 }
 
-/* App container centering */
+/* App container - full page width and height */
 .App {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  width: 100%;
+  width: 100vw;
   margin: 0;
-  padding: 0;
+  padding: 20px;
   box-sizing: border-box;
+  background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
 }
 
-/* Form-specific styling - only affects the form wrapper */
+/* Form-specific styling - wider form container */
 .form-container {
-  max-width: 10000px;
   margin: 0 auto;
-  padding: 0px;
   background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
-  min-height: auto;
+  height: 85vh; /* Fixed height to prevent wrapper scrolling */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden; /* Prevent wrapper from scrolling */
   box-sizing: border-box;
   position: relative;
   border-radius: 16px;
   box-shadow: 0 18px 100px rgba(0, 189, 0, 0.1);
+  width: 100%;
+  max-width: 900px; /* Increased from previous constraint */
 }
 
 /* Form title styling */
@@ -109,35 +109,37 @@ button:focus-visible {
   flex-shrink: 0;
 }
 
-/* Styled paper container */
+/* Styled paper container - wider */
 .styled-paper {
-  padding: 24px;
+  padding: 32px; /* Increased padding */
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 189, 0, 0.1);
   border: 1px solid rgba(0, 189, 0, 0.1);
   background-color: #ffffff;
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px; /* Significantly wider */
   box-sizing: border-box;
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: hidden; /* No overflow on paper container */
   margin: 0 auto;
+  height: 100%; /* Take full height of container */
 }
 
-/* Step content styling */
+/* Step content styling - scrollable fields area */
 .step-content {
   min-height: 300px;
   margin-bottom: 24px;
-  padding: 20px;
+  padding: 32px;
   background-color: white;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 189, 0, 0.08);
-  border: 1px solid rgba(0, 189, 0, 0.05);
+  /* box-shadow: 0 4px 20px rgba(4, 90, 4, 0.412);
+  border: 1px solid rgba(5, 39, 5, 0.855); */
   overflow-y: auto;
-  max-height: 300px;
-  flex: 1;
+  overflow-x: hidden;
+  flex: 1; /* Take available space between stepper and buttons */
+  max-height: calc(100vh - 350px); /* Ensure it doesn't grow too large */
 }
 
 /* Stepper styling */
@@ -334,11 +336,13 @@ button:focus-visible {
   background-color: rgba(244, 67, 54, 0.04);
 }
 
-/* Form buttons container */
+/* Form buttons container - fixed at bottom */
 form {
   flex-shrink: 0;
-  margin-top: auto;
+  margin-top: 0; /* Remove auto margin */
+  padding-top: 16px; /* Add some spacing from step content */
 }
+
 
 /* Custom scrollbar for form components only */
 .form-container ::-webkit-scrollbar,
@@ -365,14 +369,30 @@ form {
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+  .styled-paper {
+    max-width: 95vw;
+    padding: 24px;
+  }
+
   .form-container {
-    padding: 16px;
-    margin: 20px auto;
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+
+  .form-container {
+    margin: 0;
+    height: 90vh; /* Adjust height for mobile */
   }
 
   .styled-paper {
     padding: 20px;
+    max-width: 100%;
   }
 
   .form-title {
@@ -384,7 +404,7 @@ form {
   }
 
   .step-content {
-    max-height: 250px;
-    padding: 16px;
+    padding: 20px;
+    min-height: 300px;
   }
 }

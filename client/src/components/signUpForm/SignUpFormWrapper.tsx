@@ -133,43 +133,42 @@ export default function SignUpForm() {
               </Step>
             ))}
           </Stepper>
+            <div className="step-content">{renderStep(activeStep)}</div>
 
-          <div className="step-content">{renderStep(activeStep)}</div>
-
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Button
-                className="styled-button outlined"
-                variant="outlined"
-                disabled={activeStep === 0}
-                onClick={onBack}
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
               >
-                ← Back
-              </Button>
+                <Button
+                  className="styled-button outlined"
+                  variant="outlined"
+                  disabled={activeStep === 0}
+                  onClick={onBack}
+                >
+                  ← Back
+                </Button>
 
-              {activeStep < steps.length - 1 ? (
-                <Button
-                  className="styled-button contained"
-                  variant="contained"
-                  onClick={onNext}
-                >
-                  Next →
-                </Button>
-              ) : (
-                <Button
-                  className="styled-button contained"
-                  type="submit"
-                  variant="contained"
-                >
-                  Submit
-                </Button>
-              )}
-            </Box>
-          </form>
+                {activeStep < steps.length - 1 ? (
+                  <Button
+                    className="styled-button contained"
+                    variant="contained"
+                    onClick={onNext}
+                  >
+                    Next →
+                  </Button>
+                ) : (
+                  <Button
+                    className="styled-button contained"
+                    type="submit"
+                    variant="contained"
+                  >
+                    Submit
+                  </Button>
+                )}
+              </Box>
+            </form>
         </Paper>
       </div>
     </FormProvider>
