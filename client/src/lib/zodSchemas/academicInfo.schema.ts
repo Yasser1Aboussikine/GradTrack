@@ -16,19 +16,34 @@ export const academicInfoSchema = (validMajorsForSchool: number[]) =>
         "Buisness Administration",
         "Psychologie",
         "Mathematics",
-        "individual Minor",
+        "individual Minor"
       ])
       .optional(),
-    Academictranscript: z
-      .instanceof(File, {
-        message: "Please Upload your unofficial transcript as a PDF file",
-      })
-      .refine((file) => file.type === "application/pdf", {
-        message: "Only PDF files are allowed",
-      })
-      .refine((file) => file.size <= 15 * 1024 * 1024, {
-        message: "File is too large (15MB is the limit)",
-      }),
+    academicTranscript: z
+      .union([
+        z.instanceof(File, {
+          message: "Please Upload your unofficial transcript as a PDF file",
+        }),
+        z.null(),
+      ])
+      .refine(
+        (file) => {
+          if (file === null) return true;
+          return file.type === "application/pdf";
+        },
+        {
+          message: "Only PDF files are allowed",
+        }
+      )
+      .refine(
+        (file) => {
+          if (file === null) return true;
+          return file.size <= 15 * 1024 * 1024;
+        },
+        {
+          message: "File is too large (15MB is the limit)",
+        }
+      ),
   });
 
 export default academicInfoSchema;

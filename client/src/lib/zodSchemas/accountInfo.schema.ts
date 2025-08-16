@@ -3,7 +3,7 @@ import { z } from "zod";
 const accountInfoSchema = z
   .object({
     firstName: z.string().min(1, "First Name is REQUIRED"),
-    lasttName: z.string().min(1, "Last Name is REQUIRED"),
+    lastName: z.string().min(1, "Last Name is REQUIRED"),
     email: z
       .string()
       .regex(

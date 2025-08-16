@@ -24,10 +24,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #ffffff;
 }
 
 h1 {
@@ -64,5 +63,328 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+/* App container centering */
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Form-specific styling - only affects the form wrapper */
+.form-container {
+  max-width: 10000px;
+  margin: 0 auto;
+  padding: 0px;
+  background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 16px;
+  box-shadow: 0 18px 100px rgba(0, 189, 0, 0.1);
+}
+
+/* Form title styling */
+.form-title {
+  text-align: center;
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 24px;
+  text-shadow: 0 2px 4px rgba(0, 189, 0, 0.1);
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Styled paper container */
+.styled-paper {
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 189, 0, 0.1);
+  border: 1px solid rgba(0, 189, 0, 0.1);
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 900px;
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/* Step content styling */
+.step-content {
+  min-height: 300px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 189, 0, 0.08);
+  border: 1px solid rgba(0, 189, 0, 0.05);
+  overflow-y: auto;
+  max-height: 300px;
+  flex: 1;
+}
+
+/* Stepper styling */
+.styled-stepper {
+  margin-bottom: 32px;
+  flex-shrink: 0;
+}
+
+.styled-stepper .MuiStepLabel-root .MuiStepLabel-label {
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.styled-stepper .MuiStepLabel-root .MuiStepLabel-label.Mui-active {
+  color: #00bd00;
+  font-weight: 700;
+}
+
+.styled-stepper .MuiStepLabel-root .MuiStepLabel-label.Mui-completed {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.styled-stepper .MuiStepIcon-root {
+  color: #e8f5e8;
+  border: 2px solid #c8e6c9;
+  border-radius: 50%;
+}
+
+.styled-stepper .MuiStepIcon-root.Mui-active {
+  color: #00bd00;
+  border: 2px solid #00bd00;
+}
+
+.styled-stepper .MuiStepIcon-root.Mui-completed {
+  color: #4caf50;
+  border: 2px solid #4caf50;
+}
+
+.styled-stepper .MuiStepConnector-line {
+  border-color: #e8f5e8;
+}
+
+.styled-stepper .MuiStepConnector-root.Mui-active .MuiStepConnector-line {
+  border-color: #00bd00;
+}
+
+.styled-stepper .MuiStepConnector-root.Mui-completed .MuiStepConnector-line {
+  border-color: #4caf50;
+}
+
+/* Button styling */
+.styled-button {
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 1rem;
+  min-width: 120px;
+  transition: all 0.3s ease;
+}
+
+.styled-button.contained {
+  background-color: #00bd00;
+  color: white;
+}
+
+.styled-button.contained:hover {
+  background-color: #009900;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 189, 0, 0.3);
+}
+
+.styled-button.outlined {
+  border-color: #00bd00;
+  color: #00bd00;
+}
+
+.styled-button.outlined:hover {
+  border-color: #009900;
+  background-color: rgba(0, 189, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Text field styling */
+.styled-text-field .MuiOutlinedInput-root {
+  border-radius: 12px;
+}
+
+.styled-text-field
+  .MuiOutlinedInput-root:hover
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #00bd00;
+}
+
+.styled-text-field
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #00bd00;
+  border-width: 2px;
+}
+
+.styled-text-field .MuiInputLabel-root {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.styled-text-field .MuiInputLabel-root.Mui-focused {
+  color: #00bd00;
+}
+
+.styled-text-field .MuiFormHelperText-root {
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+/* Step title and description */
+.step-title {
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 24px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 189, 0, 0.1);
+}
+
+.step-description {
+  color: #4caf50;
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* File upload styling */
+.file-upload-area {
+  padding: 24px;
+  border: 2px dashed #c8e6c9;
+  border-radius: 12px;
+  background-color: #f8fff8;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-upload-area:hover {
+  border-color: #00bd00;
+  background-color: #f0fff0;
+}
+
+.upload-title {
+  color: #2e7d32;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.upload-text {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.error-text {
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+.file-selected {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #f8fff8;
+  border-radius: 8px;
+  border: 1px solid #c8e6c9;
+}
+
+.file-name {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.remove-button {
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 500;
+  text-transform: none;
+  font-size: 0.8rem;
+  border-color: #f44336;
+  color: #f44336;
+  margin-top: 8px;
+}
+
+.remove-button:hover {
+  border-color: #d32f2f;
+  background-color: rgba(244, 67, 54, 0.04);
+}
+
+/* Form buttons container */
+form {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+/* Custom scrollbar for form components only */
+.form-container ::-webkit-scrollbar,
+.step-content ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.form-container ::-webkit-scrollbar-track,
+.step-content ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.form-container ::-webkit-scrollbar-thumb,
+.step-content ::-webkit-scrollbar-thumb {
+  background: #00bd00;
+  border-radius: 4px;
+  border: 2px solid #f1f1f1;
+}
+
+.form-container ::-webkit-scrollbar-thumb:hover,
+.step-content ::-webkit-scrollbar-thumb:hover {
+  background: #009900;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 16px;
+    margin: 20px auto;
+  }
+
+  .styled-paper {
+    padding: 20px;
+  }
+
+  .form-title {
+    font-size: 1.8rem;
+  }
+
+  .step-title {
+    font-size: 1.5rem;
+  }
+
+  .step-content {
+    max-height: 250px;
+    padding: 16px;
   }
 }
